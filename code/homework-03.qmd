@@ -1,0 +1,110 @@
+---
+title: "ENVS-193DS_homework-03"
+format: html
+name: "Linda Herrera"
+date: "2026-02-25"
+---
+
+## Part 1. Set up tasks 
+
+```{r}
+#| label: libraries and data
+#| message: false
+library(tidyverse) # general use
+library(janitor) # cleaning data frames
+library(here) # file/folder organization
+library(readxl) # reading .xlsx files
+library(ggeffects) # generating model predictions
+library(gtsummary) # generating summary tables for models
+
+# read in data as object "pickleweed"
+pickleweed <- read.csv(here("data", "salinity-pickleweed.csv"))
+# read in personal data as object 
+my_data <- read_xlsx(here("data", "ENVS193_personal_data.xlsx"))
+```
+
+## Part 2. Problems
+
+### Problem 1. Slough soil salinity
+
+#### a. An appropriate test
+
+#### b. Create a visualization
+
+```{r}
+#| label: ggplot
+#| message: false
+
+
+```
+
+#### c. Check your assumptions and run your test
+
+```{r}
+#| label: test
+#| message: false
+
+```
+
+#### d. Results communication
+
+#### e. Test implications
+
+#### f. Double check your own work.
+
+```{r}
+#| label: test
+#| message: false
+
+
+```
+
+
+### Problem 2. Personal 
+
+#### a. Updating your visualizations
+
+```{r}
+#| label: cleaning and wrangling 
+
+```
+
+```{r}
+#| label: ggplot 1
+#| message: false
+
+```
+
+```{r}
+#| label: ggplot 2
+#| message: false
+
+```
+
+#### b. Captions
+
+
+### Problem 3. Affective visualization
+
+#### a. Describe in words what an affective visualization could look like for your personal data (3-5 sentences). 
+
+#### b. Create a sketch (on paper) of your idea.
+
+#### c. Make a draft of your visualization.
+
+#### d. Write an artist statement.
+
+#### e. Prep your materials to share in class.
+
+
+### Problem 4. Statistical critique
+
+#### a. Revisit and summarize
+
+#### b. Visual clarity
+
+#### c. Aesthetic clarity
+
+#### d. Recommendations
+
+
