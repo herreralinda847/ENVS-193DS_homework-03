@@ -16,6 +16,8 @@ library(here) # file/folder organization
 library(readxl) # reading .xlsx files
 library(ggeffects) # generating model predictions
 library(gtsummary) # generating summary tables for models
+library(ggplot2) # making ggplots 
+library(viridisLite)
 
 # read in data as object "pickleweed"
 pickleweed <- read.csv(here("data", "salinity-pickleweed.csv"))
@@ -28,6 +30,8 @@ my_data <- read_xlsx(here("data", "ENVS193_personal_data.xlsx"))
 ### Problem 1. Slough soil salinity
 
 #### a. An appropriate test
+
+The two appropriate tests are Pearson's correlation coefficient (r) and Spearman's rank correlation coefficient (ρ), which both quantify the strength and direction of the relationship between two continuous variables: salinity (e.g., soil or water salinity concentration) and California pickleweed biomass (e.g., grams of dry mass). Pearson’s r tests for a linear relationship and assumes approximately normally distributed, continuous variables with independent observations, whereas Spearman’s ρ is a non-parametric, rank-based test that assesses a monotonic relationship without requiring normality. 
 
 #### b. Create a visualization
 
@@ -65,7 +69,20 @@ my_data <- read_xlsx(here("data", "ENVS193_personal_data.xlsx"))
 #### a. Updating your visualizations
 
 ```{r}
-#| label: cleaning and wrangling 
+#| label: cleaning and wrangling
+#| message: false
+
+my_data_clean <- na.omit(my_data) |> # remove all the NA's within personal data 
+clean_names() |> # clean the data names
+  rename(date = "date_yyyy_mm_dd", # renaming all the columns to be short and simple 
+         dow = "day_of_week",
+         hw = "class_homework_time_hrs", 
+         bible_study = "bible_study_completed_yes_no",
+         min = "minutes_of_bible_study_min",
+         location = "location_home_ucen_church_building_other" ,
+         time = "time_of_day", 
+         with_someone = "with_someone_yes_no") |> 
+  mutate(hw_mins = hw*60)
 
 ```
 
@@ -73,13 +90,61 @@ my_data <- read_xlsx(here("data", "ENVS193_personal_data.xlsx"))
 #| label: ggplot 1
 #| message: false
 
+ggplot(data = my_data_clean, # start with the my_data_clean data frame
+       aes(x = with_someone, # categorical predictor variable on the x-axis
+           y = min, # response variable on the y-axis
+           color = with_someone)) + # coloring by production type
+  geom_boxplot() + # first layer should be a boxplot
+  geom_jitter(width = 0.2, # making the points jitter horizontally
+              height = 0) + # making sure points don't jitter vertically
+  labs(x = "With Someone (Yes/No)", # label x- and y- axes and add a title
+       y = "Bible Study Devotional (mins)",
+       title = "Bible Time When Studying Alone vs. With Others") +
+   scale_color_manual(values = c("No" = "red", # custom change the colors
+                                "Yes" = "green4")) +
+  theme_light() + # change the theme 
+  theme(legend.position = "none") # remove the legend 
+
 ```
 
 ```{r}
 #| label: ggplot 2
 #| message: false
 
+ggplot(data = my_data_clean, # start with the my_data_clean data frame
+       aes(x = hw_mins, # categorical predictor variable on the x-axis
+           y = min,
+           shape = dow)) + # response variable on the y-axis
+  geom_point(color = "purple", # add points and change the color 
+             size = 2) + 
+  labs(x = "Time spent doing Homework/Classes (mins)", # label x- and y- axes and add a title 
+       y = "Bible Study Devotional (mins)",
+       title = "Academic Time vs. Bible Study") + 
+  theme_light() # change the theme 
+
 ```
+
+```{r}
+my_data_clean |> 
+  arrange(desc(min)) |> 
+  ggplot(aes(x = hw_mins,
+             y = min,
+             size = min,
+             fill = location)) +
+  geom_point(alpha = 0.5,
+             shape = 21,
+             color = "black") +
+  scale_size(range = c(1, 15), name = "Bible Study (mins)") +
+  scale_fill_viridis_d(option = "A", guide = "none") +
+  theme_light() +
+  labs(x = "Time spent doing Homework/Classes (mins)",
+       y = "Bible Study Devotional (mins)",
+       title = "Academic Time vs. Bible Study") +
+  theme(legend.position = "bottom")
+
+```
+
+
 
 #### b. Captions
 
