@@ -36,9 +36,29 @@ The two appropriate tests are Pearson's correlation coefficient (r) and Spearman
 #### b. Create a visualization
 
 ```{r}
-#| label: ggplot
+#| label: cleaning
 #| message: false
+pickleweed_clean <- pickleweed |> 
+  clean_names() |> 
+  select(salinity_m_s_cm, pickleweed) |> 
+  rename(salinity = salinity_m_s_cm,
+         biomass = pickleweed)
+```
 
+```{r}
+#| label: ggplot visualization
+#| message: false
+#| fig-height: 4
+#| fig-width: 6
+ggplot(data = pickleweed_clean, 
+       aes(x = salinity,
+           y = biomass)) + 
+  geom_point(size = 3,
+             color = "darkgreen",
+             alpha = 21) +
+  labs(x = "Soil Salinity (mS/cm)",
+       y = "California Pickleweed Biomass (g)") +
+  theme_minimal()
 
 ```
 
