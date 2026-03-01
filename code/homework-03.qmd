@@ -168,7 +168,7 @@ Both tests would lead to the same decision about the null hypothesis because bot
 
 ### Problem 2. Personal 
 
-#### a. Updating your visualizations
+#### a & b. Updating your visualizations & Captions
 
 ```{r}
 #| label: cleaning and wrangling
@@ -189,14 +189,14 @@ clean_names() |> # clean the data names
 ```
 
 ```{r}
-#| label: ggplot 1
+#| label: figure 1
 #| message: false
 
 ggplot(data = my_data_clean, # start with the my_data_clean data frame
        aes(x = with_someone, # categorical predictor variable on the x-axis
            y = min, # response variable on the y-axis
            fill = with_someone)) + # coloring by production type
-  geom_boxplot(alpha = 0.7, # first layer should be a boxplot
+  geom_boxplot(alpha = 0.6, # first layer should be a boxplot
                width = 0.5,
                outlier.shape = NA) + 
   geom_jitter(width = 0.2, # making the points jitter horizontally
@@ -224,9 +224,12 @@ ggplot(data = my_data_clean, # start with the my_data_clean data frame
 
 ```
 
+**Figure 1. Bible Study Duration When Alone vs. With Someone Else.**
+This figure shows a box-and-jitter plot of Bible study devotional time (minutes) grouped by whether the study was completed alone (No) or with someone else (Yes). Semi-transparent boxplots are filled in red (No) and green (Yes), with outliers removed from the boxplot layer. Individual daily observations are overlaid as black jittered points to display raw data distribution. White-filled diamond-shaped points represent the group means for each category.
+
 
 ```{r}
-#| label: ggplot 2
+#| label: figure 2
 #| message: false
 #| fig-height: 4
 #| fig-width: 6
@@ -254,8 +257,8 @@ ggplot(my_data_clean,
 
 ```
 
-#### b. Captions
-
+**Figure 2. Daily Homework Time vs. Bible Study Duration by Location.**
+This figure presents a scatterplot of homework/class time (minutes) on the x-axis and Bible study devotional time (minutes) on the y-axis. Each observation is plotted as a large point with a black outline and filled using a discrete viridis color palette to represent study location. The different semi-transparent point shapes (circle, square, diamond, and triangle) further distinguish locations. The legend appears on the right to identify the color and shape corresponding to each location category.
 
 ### Problem 3. Affective visualization
 
