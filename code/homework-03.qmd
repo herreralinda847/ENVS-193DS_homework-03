@@ -148,15 +148,23 @@ From our linear model coefficient estimates, we found that for each 1 mS/cm incr
 
 #### e. Test implications
 
+You’re working on a team of people at this restoration site who are also concerned about pickleweed planting. In 2-3 sentences, write what you would communicate to them about the results of this test and what it means for pickleweed planting success at your site.
+
+Be cognizant of your audience as you are writing: what would they need to know to take action?
+
+The results of this test show that pickleweed grows best in areas with higher salinity, confirming that it is well adapted to salty marsh conditions. This means we should prioritize planting pickleweed in zones of our restoration site that regularly receive tidal input and maintain moderate to high salinity levels. Focusing efforts in these areas will likely improve survival and overall planting success.
+
 #### f. Double check your own work.
 
 ```{r}
 #| label: test
 #| message: false
-
+cor.test(pickleweed_clean$salinity, pickleweed_clean$biomass,
+         method = "spearman")
 
 ```
 
+Both tests would lead to the same decision about the null hypothesis because both show statistically significant associations between soil salinity and pickleweed biomass (Spearman: ρ = 0.593, p = 0.0034; Pearson: r = 0.67, p = 0.0046). While Spearman measures a monotonic relationship using ranked salinity and biomass values and Pearson measures a linear relationship using the raw continuous variables, both indicate a statistically significant, moderate positive relationship, meaning pickleweed biomass increases as soil salinity increases.
 
 ### Problem 2. Personal 
 
