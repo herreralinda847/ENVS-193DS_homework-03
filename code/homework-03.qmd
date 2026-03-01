@@ -56,7 +56,7 @@ ggplot(data = pickleweed_clean,
        aes(x = salinity,
            y = biomass)) + 
   geom_point(size = 3,
-             color = "darkgreen",
+             color = "seagreen3",
              alpha = 21) +
   labs(x = "Soil Salinity (mS/cm)",
        y = "California Pickleweed Biomass (g)") +
@@ -112,7 +112,7 @@ ggplot(data = pickleweed_clean,
            y = biomass)) +
   geom_point(size = 3,
              stroke = 0.2,
-             fill = "darkgreen",
+             fill = "seagreen3",
              shape = 21) +
   geom_ribbon(data = pickleweed_preds,
               aes(x = x,
@@ -195,58 +195,64 @@ clean_names() |> # clean the data names
 ggplot(data = my_data_clean, # start with the my_data_clean data frame
        aes(x = with_someone, # categorical predictor variable on the x-axis
            y = min, # response variable on the y-axis
-           color = with_someone)) + # coloring by production type
-  geom_boxplot() + # first layer should be a boxplot
+           fill = with_someone)) + # coloring by production type
+  geom_boxplot(alpha = 0.7, # first layer should be a boxplot
+               width = 0.5,
+               outlier.shape = NA) + 
   geom_jitter(width = 0.2, # making the points jitter horizontally
-              height = 0) + # making sure points don't jitter vertically
+              height = 0,
+              alpha = 0.5,
+              size = 2,
+              color = "black") + 
+  stat_summary(fun = mean,
+               geom = "point",
+               shape = 23,
+               size = 3,
+               fill = "white") +
+  scale_fill_manual(values = c("No" = "orangered3",
+                               "Yes" = "limegreen")) +
+  scale_y_continuous(limits = c(0, NA),
+                     expand = expansion(mult = c(0, .05))) +
   labs(x = "With Someone (Yes/No)", # label x- and y- axes and add a title
        y = "Bible Study Devotional (mins)",
-       title = "Bible Time When Studying Alone vs. With Others") +
-   scale_color_manual(values = c("No" = "red", # custom change the colors
-                                "Yes" = "green4")) +
-  theme_light() + # change the theme 
-  theme(legend.position = "none") # remove the legend 
+       title = "Bible Time When Studying Alone vs. With Others",
+       subtitle = "Most recent observation: 25 Feb 2026") +
+  theme_minimal(base_size = 12) + # change the theme 
+  theme(legend.position = "none",
+         panel.grid.minor = element_blank(),
+         plot.title = element_text(face = "bold")) # remove the legend 
 
 ```
+
 
 ```{r}
 #| label: ggplot 2
 #| message: false
+#| fig-height: 4
+#| fig-width: 6
 
-ggplot(data = my_data_clean, # start with the my_data_clean data frame
-       aes(x = hw_mins, # categorical predictor variable on the x-axis
+ggplot(my_data_clean,
+       aes(x = hw_mins,
            y = min,
-           shape = dow)) + # response variable on the y-axis
-  geom_point(color = "purple", # add points and change the color 
-             size = 2) + 
-  labs(x = "Time spent doing Homework/Classes (mins)", # label x- and y- axes and add a title 
-       y = "Bible Study Devotional (mins)",
-       title = "Academic Time vs. Bible Study") + 
-  theme_light() # change the theme 
-
-```
-
-```{r}
-my_data_clean |> 
-  arrange(desc(min)) |> 
-  ggplot(aes(x = hw_mins,
-             y = min,
-             size = min,
-             fill = location)) +
-  geom_point(alpha = 0.5,
-             shape = 21,
-             color = "black") +
-  scale_size(range = c(1, 15), name = "Bible Study (mins)") +
-  scale_fill_viridis_d(option = "A", guide = "none") +
+           shape = location,
+           fill = location)) +
+  geom_point(size = 4,
+             alpha = 0.9,
+             color = "black") + 
+  scale_shape_manual(values = c(21, 22, 23, 24, 25)) + 
+  scale_fill_viridis_d(option = "G") +
+  coord_cartesian(ylim = c(0, 130)) +
+  labs(
+    x = "Time spent doing Homework/Classes (mins)",
+    y = "Bible Study Devotional (mins)",
+    title = "Daily Homework Time vs. Bible Study",
+    subtitle = "Most recent observation: 25 Feb 2026") +
   theme_light() +
-  labs(x = "Time spent doing Homework/Classes (mins)",
-       y = "Bible Study Devotional (mins)",
-       title = "Academic Time vs. Bible Study") +
-  theme(legend.position = "bottom")
+  theme(
+    legend.position = "right",
+    plot.title = element_text(face = "bold"))
 
 ```
-
-
 
 #### b. Captions
 
