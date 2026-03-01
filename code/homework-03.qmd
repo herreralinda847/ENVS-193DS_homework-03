@@ -92,6 +92,43 @@ as_flextable(pickleweed_lm)
 ```
 Table 1. Results of simple linear regression examining the relationship between soil salinity (mS/cm) and California pickleweed biomass (g). 
 
+```{r}
+#| label: pickleweed-model-predictions
+#| message: false
+
+pickleweed_preds <- ggpredict(
+  pickleweed_lm, # model object
+  terms = "salinity") # predictor (in quotation marks)
+
+pickleweed_preds
+```
+
+```{r}
+#| label: pickleweed-model-final-figure
+#| message: false
+
+ggplot(data = pickleweed_clean,
+       aes(x = salinity,
+           y = biomass)) +
+  geom_point(size = 3,
+             stroke = 0.2,
+             fill = "darkgreen",
+             shape = 21) +
+  geom_ribbon(data = pickleweed_preds,
+              aes(x = x,
+                  y = predicted,
+                  ymin = conf.low,
+                  ymax = conf.high),
+              alpha = 0.1) +
+  geom_line(data = pickleweed_preds,
+            aes(x = x,
+                y = predicted)) +
+  labs(x = "Soil Salinity (mS/cm)", 
+       y = expression("California Pickleweed Biomass (g)")) +
+  theme_minimal()
+
+```
+
 To determine whether Pearson’s correlation was appropriate for testing the relationship between soil salinity (mS/cm) and California pickleweed biomass (g), I checked the assumptions of linearity, normality of residuals, homoscedasticity, and influential outliers. I evaluated these using the scatterplot and linear model diagnostic plots, including the Residuals vs. Fitted plot for linearity and constant variance, the Normal Q–Q plot for normality, and the Residuals vs. Leverage plot with Cook’s distance for influential points. The diagnostics indicated a linear relationship, reasonably normal residuals, constant variance, and no influential outliers, so the assumptions for Pearson’s correlation were met.
 
 ##### 2) Run test:
@@ -105,6 +142,9 @@ cor.test(pickleweed_clean$salinity, pickleweed_clean$biomass,
 
 #### d. Results communication
 
+To evaluate the strength of the relationship between California pickleweed biomass (g) and soil salinity (mS/cm), I used Pearson’s correlation, which is appropriate for testing the linear relationship between two continuous variables. We found a moderate positive relationship between soil salinity and pickleweed biomass (Pearson’s r = 0.53, t(21) = 2.90, p = 0.0086; R² = 0.29; Table 1), indicating that soil salinity significantly predicts biomass.
+
+From our linear model coefficient estimates, we found that for each 1 mS/cm increase in soil salinity, pickleweed biomass increases by approximately 2.08 ± 0.72 g (Table 1). Biologically, this suggests that larger pickleweed individuals are more likely to occur in higher-salinity soils, while smaller individuals are more likely to be found in lower-salinity soils.
 
 #### e. Test implications
 
