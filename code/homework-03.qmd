@@ -18,6 +18,7 @@ library(ggeffects) # generating model predictions
 library(gtsummary) # generating summary tables for models
 library(ggplot2) # making ggplots 
 library(viridisLite)
+library(flextable)
 
 # read in data as object "pickleweed"
 pickleweed <- read.csv(here("data", "salinity-pickleweed.csv"))
@@ -43,10 +44,11 @@ pickleweed_clean <- pickleweed |>
   select(salinity_m_s_cm, pickleweed) |> 
   rename(salinity = salinity_m_s_cm,
          biomass = pickleweed)
+
 ```
 
 ```{r}
-#| label: ggplot visualization
+#| label: pickleweed scatterplot
 #| message: false
 #| fig-height: 4
 #| fig-width: 6
@@ -64,13 +66,45 @@ ggplot(data = pickleweed_clean,
 
 #### c. Check your assumptions and run your test
 
+##### 1) Check assumptions:
 ```{r}
-#| label: test
+#| label: pickleweed-model
 #| message: false
+pickleweed_lm <- lm(
+  biomass ~ salinity, 
+  data = pickleweed_clean)
+
+```
+
+```{r}
+#| label: pickleweed-model-diagnostics
+#| message: false
+par(mfrow = c(2, 2))
+plot(pickleweed_lm) 
+
+```
+
+```{r}
+#| label: model estimates in table
+#| message: false
+
+as_flextable(pickleweed_lm) 
+```
+Table 1. Results of simple linear regression examining the relationship between soil salinity (mS/cm) and California pickleweed biomass (g). 
+
+To determine whether Pearson’s correlation was appropriate for testing the relationship between soil salinity (mS/cm) and California pickleweed biomass (g), I checked the assumptions of linearity, normality of residuals, homoscedasticity, and influential outliers. I evaluated these using the scatterplot and linear model diagnostic plots, including the Residuals vs. Fitted plot for linearity and constant variance, the Normal Q–Q plot for normality, and the Residuals vs. Leverage plot with Cook’s distance for influential points. The diagnostics indicated a linear relationship, reasonably normal residuals, constant variance, and no influential outliers, so the assumptions for Pearson’s correlation were met.
+
+##### 2) Run test:
+```{r}
+#| label: pearson test
+#| message: false
+cor.test(pickleweed_clean$salinity, pickleweed_clean$biomass,
+         method = "pearson")
 
 ```
 
 #### d. Results communication
+
 
 #### e. Test implications
 
