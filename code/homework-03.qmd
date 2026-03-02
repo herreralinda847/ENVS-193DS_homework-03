@@ -264,6 +264,8 @@ This figure presents a scatterplot of homework/class time (minutes) on the x-axi
 
 #### a. Describe in words what an affective visualization could look like for your personal data (3-5 sentences). 
 
+An affective visualization of my devotional time data could take the form of a countryside scene with rolling hills and sheep, inspired by imagery from the Bible. This idea comes especially from Psalm 23, which describes the Lord as a shepherd and people as His sheep—an analogy that emphasizes guidance, care, and dependence. Each hill would represent a different study location—home, church, UCEN, or other—and each day of Bible study would appear as a sheep placed on the corresponding hill. The shading of the sheep would show the amount of time spent (light for 1–60 minutes, medium for 61–90 minutes, dark for 91–120 minutes), and the sheep’s faces would indicate whether I studied alone or with someone (black-faced sheep for “yes” and white-faced sheep for “no”). At the top of the hills, a cross or a shepherd figure symbolizing Jesus could overlook the flock (Psalm 23), simply tying the whole scene back to the meaning behind my devotional time and the imagery that inspired it.
+
 #### b. Create a sketch (on paper) of your idea.
 
 #### c. Make a draft of your visualization.
