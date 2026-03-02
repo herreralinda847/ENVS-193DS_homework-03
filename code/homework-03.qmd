@@ -5,7 +5,7 @@ name: "Linda Herrera"
 date: "2026-02-25"
 ---
 
-## Part 1. Set up tasks 
+## Part 1. Set up tasks
 
 ```{r}
 #| label: libraries and data
@@ -32,7 +32,7 @@ my_data <- read_xlsx(here("data", "ENVS193_personal_data.xlsx"))
 
 #### a. An appropriate test
 
-The two appropriate tests are Pearson's correlation coefficient (r) and Spearman's rank correlation coefficient (ρ), which both quantify the strength and direction of the relationship between two continuous variables: salinity (e.g., soil or water salinity concentration) and California pickleweed biomass (e.g., grams of dry mass). Pearson’s r tests for a linear relationship and assumes approximately normally distributed, continuous variables with independent observations, whereas Spearman’s ρ is a non-parametric, rank-based test that assesses a monotonic relationship without requiring normality. 
+The two appropriate tests are Pearson's correlation coefficient (r) and Spearman's rank correlation coefficient (ρ), which both quantify the strength and direction of the relationship between two continuous variables: salinity (e.g., soil or water salinity concentration) and California pickleweed biomass (e.g., grams of dry mass). Pearson’s r tests for a linear relationship and assumes approximately normally distributed, continuous variables with independent observations, whereas Spearman’s ρ is a non-parametric, rank-based test that assesses a monotonic relationship without requiring normality.
 
 #### b. Create a visualization
 
@@ -67,6 +67,7 @@ ggplot(data = pickleweed_clean,
 #### c. Check your assumptions and run your test
 
 ##### 1) Check assumptions:
+
 ```{r}
 #| label: pickleweed-model
 #| message: false
@@ -90,7 +91,8 @@ plot(pickleweed_lm)
 
 as_flextable(pickleweed_lm) 
 ```
-Table 1. Results of simple linear regression examining the relationship between soil salinity (mS/cm) and California pickleweed biomass (g). 
+
+Table 1. Results of simple linear regression examining the relationship between soil salinity (mS/cm) and California pickleweed biomass (g).
 
 ```{r}
 #| label: pickleweed-model-predictions
@@ -132,6 +134,7 @@ ggplot(data = pickleweed_clean,
 To determine whether Pearson’s correlation was appropriate for testing the relationship between soil salinity (mS/cm) and California pickleweed biomass (g), I checked the assumptions of linearity, normality of residuals, homoscedasticity, and influential outliers. I evaluated these using the scatterplot and linear model diagnostic plots, including the Residuals vs. Fitted plot for linearity and constant variance, the Normal Q–Q plot for normality, and the Residuals vs. Leverage plot with Cook’s distance for influential points. The diagnostics indicated a linear relationship, reasonably normal residuals, constant variance, and no influential outliers, so the assumptions for Pearson’s correlation were met.
 
 ##### 2) Run test:
+
 ```{r}
 #| label: pearson test
 #| message: false
@@ -166,7 +169,7 @@ cor.test(pickleweed_clean$salinity, pickleweed_clean$biomass,
 
 Both tests would lead to the same decision about the null hypothesis because both show statistically significant associations between soil salinity and pickleweed biomass (Spearman: ρ = 0.593, p = 0.0034; Pearson: r = 0.67, p = 0.0046). While Spearman measures a monotonic relationship using ranked salinity and biomass values and Pearson measures a linear relationship using the raw continuous variables, both indicate a statistically significant, moderate positive relationship, meaning pickleweed biomass increases as soil salinity increases.
 
-### Problem 2. Personal 
+### Problem 2. Personal
 
 #### a & b. Updating your visualizations & Captions
 
@@ -224,9 +227,7 @@ ggplot(data = my_data_clean, # start with the my_data_clean data frame
 
 ```
 
-**Figure 1. Bible Study Duration When Alone vs. With Someone Else.**
-This figure shows a box-and-jitter plot of Bible study devotional time (minutes) grouped by whether the study was completed alone (No) or with someone else (Yes). Semi-transparent boxplots are filled in red (No) and green (Yes), with outliers removed from the boxplot layer. Individual daily observations are overlaid as black jittered points to display raw data distribution. White-filled diamond-shaped points represent the group means for each category.
-
+**Figure 1. Bible Study Duration When Alone vs. With Someone Else.** This figure shows a box-and-jitter plot of Bible study devotional time (minutes) grouped by whether the study was completed alone (No) or with someone else (Yes). Semi-transparent boxplots are filled in red (No) and green (Yes), with outliers removed from the boxplot layer. Individual daily observations are overlaid as black jittered points to display raw data distribution. White-filled diamond-shaped points represent the group means for each category.
 
 ```{r}
 #| label: figure 2
@@ -257,23 +258,23 @@ ggplot(my_data_clean,
 
 ```
 
-**Figure 2. Daily Homework Time vs. Bible Study Duration by Location.**
-This figure presents a scatterplot of homework/class time (minutes) on the x-axis and Bible study devotional time (minutes) on the y-axis. Each observation is plotted as a large point with a black outline and filled using a discrete viridis color palette to represent study location. The different semi-transparent point shapes (circle, square, diamond, and triangle) further distinguish locations. The legend appears on the right to identify the color and shape corresponding to each location category.
+**Figure 2. Daily Homework Time vs. Bible Study Duration by Location.** This figure presents a scatterplot of homework/class time (minutes) on the x-axis and Bible study devotional time (minutes) on the y-axis. Each observation is plotted as a large point with a black outline and filled using a discrete viridis color palette to represent study location. The different semi-transparent point shapes (circle, square, diamond, and triangle) further distinguish locations. The legend appears on the right to identify the color and shape corresponding to each location category.
 
 ### Problem 3. Affective visualization
 
-#### a. Describe in words what an affective visualization could look like for your personal data (3-5 sentences). 
+#### a. Describe in words what an affective visualization could look like for your personal data (3-5 sentences).
 
 An affective visualization of my devotional time data could take the form of a countryside scene with rolling hills and sheep, inspired by imagery from the Bible. This idea comes especially from Psalm 23, which describes the Lord as a shepherd and people as His sheep—an analogy that emphasizes guidance, care, and dependence. Each hill would represent a different study location—home, church, UCEN, or other—and each day of Bible study would appear as a sheep placed on the corresponding hill. The shading of the sheep would show the amount of time spent (light for 1–60 minutes, medium for 61–90 minutes, dark for 91–120 minutes), and the sheep’s faces would indicate whether I studied alone or with someone (black-faced sheep for “yes” and white-faced sheep for “no”). At the top of the hills, a cross or a shepherd figure symbolizing Jesus could overlook the flock (Psalm 23), simply tying the whole scene back to the meaning behind my devotional time and the imagery that inspired it.
 
 #### b. Create a sketch (on paper) of your idea.
+
+![](images/clipboard-2511943069.jpeg){width="517"}
 
 #### c. Make a draft of your visualization.
 
 #### d. Write an artist statement.
 
 #### e. Prep your materials to share in class.
-
 
 ### Problem 4. Statistical critique
 
@@ -284,5 +285,3 @@ An affective visualization of my devotional time data could take the form of a c
 #### c. Aesthetic clarity
 
 #### d. Recommendations
-
-
