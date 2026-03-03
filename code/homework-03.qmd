@@ -20,8 +20,8 @@ library(ggplot2) # making ggplots
 library(viridisLite)
 library(flextable)
 
-# read in data as object "pickleweed"
-pickleweed <- read.csv(here("data", "salinity-pickleweed.csv"))
+# read in data as object "salinity"
+salinity <- read.csv(here("data", "salinity-pickleweed.csv"))
 # read in personal data as object 
 my_data <- read_xlsx(here("data", "ENVS193_personal_data.xlsx"))
 ```
@@ -39,7 +39,7 @@ The two appropriate tests are Pearson's correlation coefficient (r) and Spearman
 ```{r}
 #| label: cleaning
 #| message: false
-pickleweed_clean <- pickleweed |> 
+salinity_clean <- salinity |> 
   clean_names() |> 
   select(salinity_m_s_cm, pickleweed) |> 
   rename(salinity = salinity_m_s_cm,
@@ -52,7 +52,7 @@ pickleweed_clean <- pickleweed |>
 #| message: false
 #| fig-height: 4
 #| fig-width: 6
-ggplot(data = pickleweed_clean, 
+ggplot(data = salinity_clean, 
        aes(x = salinity,
            y = biomass)) + 
   geom_point(size = 3,
@@ -71,9 +71,9 @@ ggplot(data = pickleweed_clean,
 ```{r}
 #| label: pickleweed-model
 #| message: false
-pickleweed_lm <- lm(
+salinity_lm <- lm(
   biomass ~ salinity, 
-  data = pickleweed_clean)
+  data = salinity_clean)
 
 ```
 
@@ -81,7 +81,7 @@ pickleweed_lm <- lm(
 #| label: pickleweed-model-diagnostics
 #| message: false
 par(mfrow = c(2, 2))
-plot(pickleweed_lm) 
+plot(salinity_lm) 
 
 ```
 
@@ -89,7 +89,7 @@ plot(pickleweed_lm)
 #| label: model estimates in table
 #| message: false
 
-as_flextable(pickleweed_lm) 
+as_flextable(salinity_lm) 
 ```
 
 Table 1. Results of simple linear regression examining the relationship between soil salinity (mS/cm) and California pickleweed biomass (g).
@@ -98,31 +98,31 @@ Table 1. Results of simple linear regression examining the relationship between 
 #| label: pickleweed-model-predictions
 #| message: false
 
-pickleweed_preds <- ggpredict(
-  pickleweed_lm, # model object
+salinity_preds <- ggpredict(
+  salinity_lm, # model object
   terms = "salinity") # predictor (in quotation marks)
 
-pickleweed_preds
+salinity_preds
 ```
 
 ```{r}
 #| label: pickleweed-model-final-figure
 #| message: false
 
-ggplot(data = pickleweed_clean,
+ggplot(data = salinity_clean,
        aes(x = salinity,
            y = biomass)) +
   geom_point(size = 3,
              stroke = 0.2,
              fill = "seagreen3",
              shape = 21) +
-  geom_ribbon(data = pickleweed_preds,
+  geom_ribbon(data = salinity_preds,
               aes(x = x,
                   y = predicted,
                   ymin = conf.low,
                   ymax = conf.high),
               alpha = 0.1) +
-  geom_line(data = pickleweed_preds,
+  geom_line(data = salinity_preds,
             aes(x = x,
                 y = predicted)) +
   labs(x = "Soil Salinity (mS/cm)", 
@@ -138,7 +138,7 @@ To determine whether Pearson’s correlation was appropriate for testing the rel
 ```{r}
 #| label: pearson test
 #| message: false
-cor.test(pickleweed_clean$salinity, pickleweed_clean$biomass,
+cor.test(salinity_clean$salinity, salinity_clean$biomass,
          method = "pearson")
 
 ```
@@ -162,7 +162,7 @@ The results of this test show that pickleweed grows best in areas with higher sa
 ```{r}
 #| label: test
 #| message: false
-cor.test(pickleweed_clean$salinity, pickleweed_clean$biomass,
+cor.test(salinity_clean$salinity, salinity_clean$biomass,
          method = "spearman")
 
 ```
