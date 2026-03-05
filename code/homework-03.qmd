@@ -10,6 +10,8 @@ execute:
   warning: false # use this to make sure warnings don't show up
 ---
 
+Link to my github: [GitHub Repository](https://github.com/herreralinda847/ENVS-193DS_homework-03)
+
 ## Part 1. Set up tasks
 
 ```{r}
@@ -62,46 +64,71 @@ salinity_clean <- salinity |>
 ggplot(data = salinity_clean, 
        aes(x = salinity,
            y = biomass)) + 
-  geom_point(size = 3,
-             color = "seagreen3",
+  geom_point(size = 2,
+             color = "seagreen",
              alpha = 21) +
   labs(x = "Soil Salinity (mS/cm)",
-       y = "California Pickleweed Biomass (g)") +
+       y = "California Pickleweed Biomass (g)",
+       title = "Relationship between Soil Salinity and Pickleweed Biomass") +
   theme_minimal()
 
 ```
 
 #### c. Check your assumptions and run your test
 
-##### • Check assumptions: diagnostic plots
+##### • Check assumptions: linearity
 
 ```{r}
-#| label: pickleweed-model
+#| label: pickleweed scatterplot
 #| message: false
-salinity_lm <- lm(
-  biomass ~ salinity, 
-  data = salinity_clean)
+#| fig-height: 4
+#| fig-width: 6
+ggplot(data = salinity_clean, 
+       aes(x = salinity,
+           y = biomass)) + 
+  geom_point(size = 2,
+             color = "seagreen",
+             alpha = 21) +
+  labs(x = "Soil Salinity (mS/cm)",
+       y = "California Pickleweed Biomass (g)",
+       title = "Relationship between Soil Salinity and Pickleweed Biomass") +
+  theme_minimal()
+
+```
+
+##### • Check assumptions: normal distribution
+
+```{r}
+#| label: salinity normal distribution
+#| message: false
+ggplot(data = salinity_clean,
+       aes(sample = salinity)) +
+  geom_qq_line(color = "seagreen") +  
+  geom_qq() + 
+  labs(
+    title = "QQ Plot of Soil Salinity",
+    x = "Theoretical Quantiles",
+    y = "Sample Quantiles") +
+  theme_light()
 
 ```
 
 ```{r}
-#| label: pickleweed-model-diagnostics
+#| label: biomass normal distribution 
 #| message: false
-par(mfrow = c(2, 2))
-plot(salinity_lm) 
+ggplot(data = salinity_clean,
+       aes(sample = biomass)) +
+  geom_qq_line(color = "seagreen") +  
+  geom_qq() + 
+  labs(
+    title = "QQ Plot of Biomass",
+    x = "Theoretical Quantiles",
+    y = "Sample Quantiles") +
+  theme_light()
 
 ```
 
-```{r}
-#| label: model estimates in table
-#| message: false
-
-as_flextable(salinity_lm) 
-```
-
-Table 1. Results of simple linear regression examining the relationship between soil salinity (mS/cm) and California pickleweed biomass (g).
-
-To determine whether Pearson’s correlation was appropriate for testing the relationship between soil salinity (mS/cm) and California pickleweed biomass (g), I checked the assumptions of linearity, normality of residuals, homoscedasticity, and influential outliers. I evaluated these using the scatterplot and linear model diagnostic plots, including the Residuals vs. Fitted plot for linearity and constant variance, the Normal Q–Q plot for normality, and the Residuals vs. Leverage plot with Cook’s distance for influential points. The diagnostics indicated a linear relationship, reasonably normal residuals, constant variance, and no influential outliers, so the assumptions for Pearson’s correlation were met.
+To determine whether Pearson’s correlation was appropriate for testing the relationship between soil salinity (mS/cm) and California pickleweed biomass (g), I checked the assumptions of linearity and normality. I evaluated these using the scatterplot and fitting a linear model , including the Residuals vs. Fitted plot for linearity and constant variance, the Normal Q–Q plot for normality, and the Residuals vs. Leverage plot with Cook’s distance for influential points. The diagnostics indicated a linear relationship, reasonably normal residuals, constant variance, and no influential outliers, so the assumptions for Pearson’s correlation were met.
 
 ##### • Run test:
 
@@ -117,17 +144,13 @@ cor.test(salinity_clean$salinity, salinity_clean$biomass,
 
 ##### • Which test you used, and why:
 
-I used Pearson's correlation to measure the strength and direction of the linear relationship between soil salinity (mS/cm) and California pickleweed biomass (g), since both variables are continuous. To conform this test was appropriate, I checked the assumptions of linearity, normality of residuals, homoscedasticity, and influential outliers using a scatterplot and linear model diagnostic plot Residuals vs. Fitted, Normal Q–Q, and Residuals vs. Leverage with Cook’s distance). The diagnostics indicated that these assumptions were met.
+To ensure that Pearson’s correlation was appropriate, I checked the assumptions of linearity and normality for soil salinity and pickleweed biomass. Linearity was assessed using a scatterplot of salinity versus biomass, and normality was evaluated using Q–Q plots for both variables. The plots showed an approximately linear relationship and the Q–Q plots closely followed the theoretical distribution with only minor deviations at the tails, indicating that the assumptions were reasonably met.
 
 ##### • Your interpretation of your test (along with the appropriate summary of the test in parentheses):
 
-I found a moderate, positive linear relationship between soil salinity (mS/cm) and California pickleweed biomass (g) (Pearson’s r = 0.53, t(21) = 2.90, p = 0.01, R² = 0.29, $\alpha$ = 0.05). Biomass increased by approximately 2.08 ± 0.72 g per 1 mS/cm increase in salinity (slope ± SE), indicating that higher soil salinity is associated with greater pickleweed biomass. This suggests that larger individuals are more likely to occur in higher-salinity soils.
+I found a moderate, positive linear relationship between soil salinity (mS/cm) and California pickleweed biomass (g) (Pearson’s r = 0.53, t(21) = 2.90, p = 0.01, R² = 0.29, $\alpha$ = 0.05). Biomass increased by approximately 2.08 ± 0.72 g per 1 mS/cm increase in salinity, indicating that higher soil salinity is associated with greater pickleweed biomass. This suggests that larger individuals are more likely to occur in higher-salinity soils.
 
 #### e. Test implications
-
-You’re working on a team of people at this restoration site who are also concerned about pickleweed planting. In 2-3 sentences, write what you would communicate to them about the results of this test and what it means for pickleweed planting success at your site.
-
-Be cognizant of your audience as you are writing: what would they need to know to take action?
 
 The results show that pickleweed biomass increases with soil salinity, indicating that the species performs well under more saline marsh conditions. For our restoration site, this suggests we should prioritize planting in zones that regularly receive tidal input and maintain moderate to high salinity levels. Focusing efforts in these areas will likely improve establishment and overall planting success.
 
@@ -284,4 +307,13 @@ The authors visually represent their statistics clearly across the figure panels
 
 #### c. Aesthetic clarity
 
+How well did the authors handle “visual clutter”? How would you describe the the data:ink ratio?
+
+
+
 #### d. Recommendations
+
+In 2-4 sentences, outline what recommendations would you make to make the figure or table better. What would you take out, add, or change? Provide explanations/justifications for each of your recommendations.
+
+
+
