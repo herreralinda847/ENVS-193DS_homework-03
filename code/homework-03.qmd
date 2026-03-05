@@ -126,7 +126,7 @@ Be cognizant of your audience as you are writing: what would they need to know t
 
 The results show that pickleweed biomass increases with soil salinity, indicating that the species performs well under more saline marsh conditions. For our restoration site, this suggests we should prioritize planting in zones that regularly receive tidal input and maintain moderate to high salinity levels. Focusing efforts in these areas will likely improve establishment and overall planting success.
 
-#### f. Double check your own work.
+#### f. Double check your own work
 
 ```{r}
 #| label: test
@@ -235,15 +235,33 @@ ggplot(my_data_clean,
 
 An affective visualization of my devotional time data could take the form of a countryside scene with rolling hills and sheep, inspired by imagery from the Bible. This idea comes especially from Psalm 23, which describes the Lord as a shepherd and people as His sheep—an analogy that emphasizes guidance, care, and dependence. Each hill would represent a different study location—home, church, UCEN, or other—and each day of Bible study would appear as a sheep placed on the corresponding hill. The shading of the sheep would show the amount of time spent (light for 1–60 minutes, medium for 61–90 minutes, dark for 91–120 minutes), and the sheep’s faces would indicate whether I studied alone or with someone (black-faced sheep for “yes” and white-faced sheep for “no”). At the top of the hills, a cross or a shepherd figure symbolizing Jesus could overlook the flock (Psalm 23), simply tying the whole scene back to the meaning behind my devotional time and the imagery that inspired it.
 
-#### b. Create a sketch (on paper) of your idea.
+#### b. Create a sketch (on paper) of your idea
 
 ![](images/clipboard-2511943069.jpeg){width="517"}
 
-#### c. Make a draft of your visualization.
+#### c. Make a draft of your visualization
 
 ![](images/envs193project-19.jpg){width="517"}
 
-#### e. Prep your materials to share in class.
+#### d. Write an artist statement
+
+##### • Content
+
+This piece visualizes my devotional life during the school term by representing each day of Bible study as a sheep placed on different hills in a pastoral landscape. Each hill represents a study location, while the sheep’s shading and face color communicate the duration of study and whether I studied alone or with someone. The scene reflects how my academic workload interacts with my spiritual routine and consistency.
+
+##### • Influences
+
+The imagery is inspired by Psalm 23, which describes the Lord as a shepherd guiding and caring for His sheep. This metaphor shaped the decision to represent each study day as a sheep watched over by a cross or shepherd figure symbolizing Jesus Christ. I was also influenced by Dear Data by Stefanie Posavec and Giorgia Lupi, which inspired the use of personal data expressed through artistic, hand-crafted visual forms.
+
+##### • Form
+
+The work is presented as a digital scrapbook-style collage, combining illustrated elements such as hills, sheep, and symbolic imagery with layered textures and a cut-out graphic look. The scrapbook aesthetic allows the visualization to feel personal and reflective, similar to documenting moments in a journal.
+
+##### • Process
+
+I began by tracking my daily data on Bible study and academic workload. Then I designed visual symbols for each variable and assembled them into a digital countryside scene using a scrapbook collage approach—layering textures, shapes, and icons to represent my data. This process allowed the visualization to function both as a personal reflection and as a creative way of communicating patterns in my devotional habits.
+
+#### e. Prep your materials to share in class
 
 ### Problem 4. Statistical critique
 
