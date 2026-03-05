@@ -136,7 +136,7 @@ cor.test(salinity_clean$salinity, salinity_clean$biomass,
 
 ```
 
-Both tests would lead to the same decision about the null hypothesis because both show statistically significant associations between soil salinity and pickleweed biomass (Spearman: ρ = 0.593, p = 0.0034; Pearson: r = 0.67, p = 0.0046). While Spearman measures a monotonic relationship using ranked salinity and biomass values and Pearson measures a linear relationship using the raw continuous variables, both indicate a statistically significant, moderate positive relationship, meaning pickleweed biomass increases as soil salinity increases.
+Both tests would lead to the same decision about the null hypothesis because both show statistically significant associations between soil salinity and pickleweed biomass (Pearson’s r = 0.53, t(21) = 2.9, p = 0.009, $\alpha$ = 0.05; Spearman’s = 0.59, S = 824, p \< 0.003, $\alpha$ = 0.05). While Spearman measures a monotonic relationship using ranked salinity and biomass values and Pearson measures a linear relationship using the raw continuous variables, both indicate a statistically significant, moderate positive relationship, meaning pickleweed biomass increases as soil salinity increases.
 
 ### Problem 2. Personal
 
@@ -241,7 +241,7 @@ An affective visualization of my devotional time data could take the form of a c
 
 #### c. Make a draft of your visualization.
 
-#### d. Write an artist statement.
+![](images/envs193project-19.jpg){width="517"}
 
 #### e. Prep your materials to share in class.
 
