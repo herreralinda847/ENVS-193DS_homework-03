@@ -269,6 +269,10 @@ I began by tracking my daily data on Bible study and academic workload. Then I d
 
 #### a. Revisit and summarize
 
+The authors used two-way ANOVA and Student’s t-tests to compare rice plants with and without AMF across different antimony levels. Antimony concentration and AMF presence were the independent variables, while plant growth, antimony uptake, and enzyme activity were the dependent variables. 
+
+![](images/figure-2-stat-crit.webp){width="517"}
+
 #### b. Visual clarity
 
 #### c. Aesthetic clarity
