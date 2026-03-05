@@ -79,7 +79,7 @@ ggplot(data = salinity_clean,
 ##### • Check assumptions: linearity
 
 ```{r}
-#| label: pickleweed scatterplot
+#| label: salinity scatterplot
 #| message: false
 #| fig-height: 4
 #| fig-width: 6
@@ -307,13 +307,11 @@ The authors visually represent their statistics clearly across the figure panels
 
 #### c. Aesthetic clarity
 
-How well did the authors handle “visual clutter”? How would you describe the the data:ink ratio?
-
-
+The authors handle visual clutter well by keeping the figure design relatively simple despite presenting multiple variables. Most of the ink in the figure represents meaningful data elements—such as bars, points, regression lines, and error bars—rather than unnecessary decorative features, resulting in a high data-to-ink ratio. The use of a plain background, clear axes, and limited colors helps distinguish treatments (M− and M+) without overwhelming the viewer. Overall, the figure remains readable while still presenting information on both aboveground and underground biomass across Sb concentrations.
 
 #### d. Recommendations
 
-In 2-4 sentences, outline what recommendations would you make to make the figure or table better. What would you take out, add, or change? Provide explanations/justifications for each of your recommendations.
+I would recommend adding individual data points to the bar graphs in panels A and B so readers can see the distribution rather than only the mean ± SD, which would improve transparency. The figure could also standardize colors across panels (e.g., keep the same color for M- and M+ in all panels) to make the treatment comparisons easier to follow visually. The y-axis labeling on panel C could be more clearly indicated by going up by the same increments. The axis break could make the changes in the biomass appear larger or smaller than they are.
 
 
 
