@@ -2,7 +2,9 @@
 title: "ENVS-193DS_homework-03"
 format: html
 name: "Linda Herrera"
-date: "2026-02-25"
+date: "2026-03-5"
+html:
+    toc: true # use this to display a table of contents
 ---
 
 ## Part 1. Set up tasks
@@ -274,6 +276,8 @@ The authors used two-way ANOVA and Student’s t-tests to compare rice plants wi
 ![](images/figure-2-stat-crit.webp){width="517"}
 
 #### b. Visual clarity
+
+The authors visually represent their statistics clearly across the figure panels. In panels A and B, Sb concentration is on the x-axis and biomass (dry weight) on the y-axis, logically presenting the independent and dependent variables; the bar graphs show mean values with SD error bars and use colors to distinguish M− and M+ treatments, with letters indicating significant differences (P < 0.05). Panels C and D include individual data points with regression lines and R² values, which clearly illustrate the negative relationship between Sb concentration and biomass. However, the bar charts do not show the raw data points and the small sample size (n = 3) limits how fully variability can be assessed.
 
 #### c. Aesthetic clarity
 
