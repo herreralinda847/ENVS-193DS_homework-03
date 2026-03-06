@@ -22,10 +22,8 @@ library(janitor) # cleaning data frames
 library(here) # file/folder organization
 library(readxl) # reading .xlsx files
 library(ggeffects) # generating model predictions
-library(gtsummary) # generating summary tables for models
 library(ggplot2) # making ggplots 
-library(viridisLite)
-library(flextable)
+library(viridisLite) # viridis color palette 
 
 # read in data as object "salinity"
 salinity <- read.csv(here("data", "salinity-pickleweed.csv"))
@@ -46,31 +44,31 @@ The two appropriate tests are Pearson's correlation coefficient (r) and Spearman
 ```{r}
 #| label: cleaning
 #| message: false
-salinity_clean <- salinity |> 
-  clean_names() |> 
-  select(salinity_m_s_cm, pickleweed) |> 
-  rename(salinity = salinity_m_s_cm,
-         biomass = pickleweed)
+salinity_clean <- salinity |> # use the salinity data
+  clean_names() |> # clean the column names 
+  select(salinity_m_s_cm, pickleweed) |> # select columns of interest
+  rename(salinity = salinity_m_s_cm, # rename salinity
+         biomass = pickleweed) # rename biomass 
 
 ```
 
 ##### Fit linear model
 
 ```{r}
-#| label: pickleweed scatterplot
+#| label: biomass and salinity scatterplot
 #| message: false
 #| fig-height: 4
 #| fig-width: 6
-ggplot(data = salinity_clean, 
-       aes(x = salinity,
-           y = biomass)) + 
-  geom_point(size = 2,
-             color = "seagreen",
-             alpha = 21) +
-  labs(x = "Soil Salinity (mS/cm)",
-       y = "California Pickleweed Biomass (g)",
-       title = "Relationship between Soil Salinity and Pickleweed Biomass") +
-  theme_minimal()
+ggplot(data = salinity_clean, # use clean data frame
+       aes(x = salinity, # set salinity on x-axis and biomass on y-axis
+            y = biomass)) + 
+  geom_point(size = 2, # adding scatterplot points
+             color = "seagreen", # changing the color
+             alpha = 21) + # setting the points to be a circle
+  labs(x = "Soil Salinity (mS/cm)", # label the x-axis
+       y = "California Pickleweed Biomass (g)", # label the y-axis
+       title = "Relationship between Soil Salinity and Pickleweed Biomass") + # add a title 
+  theme_minimal() # apply minimal theme
 
 ```
 
@@ -83,16 +81,16 @@ ggplot(data = salinity_clean,
 #| message: false
 #| fig-height: 4
 #| fig-width: 6
-ggplot(data = salinity_clean, 
-       aes(x = salinity,
+ggplot(data = salinity_clean, # use clean data frame
+       aes(x = salinity, # set salinity on x-axis and biomass on y-axis
            y = biomass)) + 
-  geom_point(size = 2,
-             color = "seagreen",
-             alpha = 21) +
-  labs(x = "Soil Salinity (mS/cm)",
-       y = "California Pickleweed Biomass (g)",
-       title = "Relationship between Soil Salinity and Pickleweed Biomass") +
-  theme_minimal()
+  geom_point(size = 2, # adding scatterplot points
+             color = "seagreen", # changing the color
+             alpha = 21) + # setting the points to be a circle
+  labs(x = "Soil Salinity (mS/cm)", # label the x-axis
+       y = "California Pickleweed Biomass (g)", # label the y-axis
+       title = "Relationship between Soil Salinity and Pickleweed Biomass") + # add a title 
+  theme_minimal() # apply minimal theme
 
 ```
 
@@ -101,30 +99,28 @@ ggplot(data = salinity_clean,
 ```{r}
 #| label: salinity normal distribution
 #| message: false
-ggplot(data = salinity_clean,
-       aes(sample = salinity)) +
-  geom_qq_line(color = "seagreen") +  
+ggplot(data = salinity_clean, # use clean data frame
+       aes(sample = salinity)) + # set salinity for QQ plot
+  geom_qq_line(color = "seagreen") + # reference line
   geom_qq() + 
-  labs(
-    title = "QQ Plot of Soil Salinity",
-    x = "Theoretical Quantiles",
-    y = "Sample Quantiles") +
-  theme_light()
+  labs(x = "Theoretical Quantiles", # label the x-axis
+       y = "Sample Quantiles", # label the y-axis
+       title = "QQ Plot of Soil Salinity") + # add a title 
+  theme_light() # apply light theme
 
 ```
 
 ```{r}
 #| label: biomass normal distribution 
 #| message: false
-ggplot(data = salinity_clean,
-       aes(sample = biomass)) +
-  geom_qq_line(color = "seagreen") +  
+ggplot(data = salinity_clean, # use clean data frame
+       aes(sample = biomass)) + # set salinity for QQ plot
+  geom_qq_line(color = "seagreen") + # reference line
   geom_qq() + 
-  labs(
-    title = "QQ Plot of Biomass",
-    x = "Theoretical Quantiles",
-    y = "Sample Quantiles") +
-  theme_light()
+  labs(x = "QQ Plot of Biomass", # label the x-axis
+       y = "Sample Quantiles", # label the y-axis
+       title = "QQ Plot of Soil Salinity") + # add a title 
+  theme_light() # apply light theme
 
 ```
 
@@ -135,8 +131,8 @@ To determine whether Pearson’s correlation was appropriate for testing the rel
 ```{r}
 #| label: pearson test
 #| message: false
-cor.test(salinity_clean$salinity, salinity_clean$biomass,
-         method = "pearson")
+cor.test(salinity_clean$salinity, salinity_clean$biomass, # test relationship between salinity and biomass
+         method = "pearson") # use Pearson correlation
 
 ```
 
@@ -159,8 +155,8 @@ The results show that pickleweed biomass increases with soil salinity, indicatin
 ```{r}
 #| label: test
 #| message: false
-cor.test(salinity_clean$salinity, salinity_clean$biomass,
-         method = "spearman")
+cor.test(salinity_clean$salinity, salinity_clean$biomass, # test relationship between salinity and biomass
+         method = "spearman") # use Spearman correlation
 
 ```
 
@@ -176,7 +172,7 @@ Both tests would lead to the same decision about the null hypothesis because bot
 
 my_data_clean <- na.omit(my_data) |> # remove all the NA's within personal data 
 clean_names() |> # clean the data names
-  rename(date = "date_yyyy_mm_dd", # renaming all the columns to be short and simple 
+  rename(date = "date_yyyy_mm_dd", # renaming all the columns to be short and simple
          dow = "day_of_week",
          hw = "class_homework_time_hrs", 
          bible_study = "bible_study_completed_yes_no",
@@ -184,7 +180,7 @@ clean_names() |> # clean the data names
          location = "location_home_ucen_church_building_other" ,
          time = "time_of_day", 
          with_someone = "with_someone_yes_no") |> 
-  mutate(hw_mins = hw*60)
+  mutate(hw_mins = hw*60) # adding a column that makes the hours into mins
 
 ```
 
@@ -195,32 +191,32 @@ clean_names() |> # clean the data names
 ggplot(data = my_data_clean, # start with the my_data_clean data frame
        aes(x = with_someone, # categorical predictor variable on the x-axis
            y = min, # response variable on the y-axis
-           fill = with_someone)) + # coloring by production type
+           fill = with_someone)) + # color by category
   geom_boxplot(alpha = 0.6, # first layer should be a boxplot
                width = 0.5,
                outlier.shape = NA) + 
   geom_jitter(width = 0.2, # making the points jitter horizontally
               height = 0,
-              alpha = 0.5,
-              size = 2,
+              alpha = 0.5, # apply transparency
+              size = 2, # adjust point size
               color = "black") + 
-  stat_summary(fun = mean,
+  stat_summary(fun = mean, # show mean point
                geom = "point",
-               shape = 23,
-               size = 3,
-               fill = "white") +
-  scale_fill_manual(values = c("No" = "orangered3",
+               shape = 23, # set shape to be a diamond 
+               size = 3, # adjust point size
+               fill = "white") + # set color of this mean point 
+  scale_fill_manual(values = c("No" = "orangered3", # set custom colors
                                "Yes" = "limegreen")) +
-  scale_y_continuous(limits = c(0, NA),
+  scale_y_continuous(limits = c(0, NA), # start y-axis at 0
                      expand = expansion(mult = c(0, .05))) +
   labs(x = "With Someone (Yes/No)", # label x- and y- axes and add a title
        y = "Bible Study Devotional (mins)",
        title = "Bible Time When Studying Alone vs. With Others",
        subtitle = "Most recent observation: 25 Feb 2026") +
-  theme_minimal(base_size = 12) + # change the theme 
-  theme(legend.position = "none",
+  theme_minimal(base_size = 12) + # apply minimal theme
+  theme(legend.position = "none", # remove legend and adjust styling
          panel.grid.minor = element_blank(),
-         plot.title = element_text(face = "bold")) # remove the legend 
+         plot.title = element_text(face = "bold"))
 
 ```
 
@@ -232,26 +228,24 @@ ggplot(data = my_data_clean, # start with the my_data_clean data frame
 #| fig-height: 4
 #| fig-width: 6
 
-ggplot(my_data_clean,
-       aes(x = hw_mins,
-           y = min,
-           shape = location,
-           fill = location)) +
-  geom_point(size = 4,
-             alpha = 0.9,
+ggplot(my_data_clean, # start with the my_data_clean data frame
+       aes(x = hw_mins, # categorical variable on x-axis
+           y = min, # devotional minutes on y-axis
+           shape = location, # shape by category
+           fill = location)) + # color by category
+  geom_point(size = 4, # adjust point size
+             alpha = 0.8, # apply transparency
              color = "black") + 
-  scale_shape_manual(values = c(21, 22, 23, 24, 25)) + 
-  scale_fill_viridis_d(option = "G") +
-  coord_cartesian(ylim = c(0, 130)) +
-  labs(
-    x = "Time spent doing Homework/Classes (mins)",
-    y = "Bible Study Devotional (mins)",
-    title = "Daily Homework Time vs. Bible Study",
-    subtitle = "Most recent observation: 25 Feb 2026") +
-  theme_light() +
-  theme(
-    legend.position = "right",
-    plot.title = element_text(face = "bold"))
+  scale_shape_manual(values = c(21, 22, 23, 24, 25)) + # set point shapes
+  scale_fill_viridis_d(option = "G") + # apply viridis color palette
+  coord_cartesian(ylim = c(0, 130)) + # limit y-axis range
+  labs(x = "Time spent doing Homework/Classes (mins)", # label x- and y- axes, add a title and subtitle
+       y = "Bible Study Devotional (mins)",
+       title = "Daily Homework Time vs. Bible Study",
+       subtitle = "Most recent observation: 25 Feb 2026") +
+  theme_light() + # apply light theme
+  theme(legend.position = "right", # set position of legend and adjust styling 
+        plot.title = element_text(face = "bold"))
 
 ```
 
@@ -283,11 +277,11 @@ The imagery is inspired by Psalm 23, which describes the Lord as a shepherd guid
 
 ##### • Form
 
-The work is presented as a digital scrapbook-style collage, combining illustrated elements such as hills, sheep, and symbolic imagery with layered textures and a cut-out graphic look. The scrapbook aesthetic allows the visualization to feel personal and reflective, similar to documenting moments in a journal.
+The work is presented as a scrapbook-style collage, combining illustrated elements such as hills, sheep, and symbolic imagery with layered textures and a cut-out graphic look. The scrapbook aesthetic allows the visualization to feel personal and reflective, similar to documenting moments in a journal.
 
 ##### • Process
 
-I began by tracking my daily data on Bible study and academic workload. Then I designed visual symbols for each variable and assembled them into a digital countryside scene using a scrapbook collage approach—layering textures, shapes, and icons to represent my data. This process allowed the visualization to function both as a personal reflection and as a creative way of communicating patterns in my devotional habits.
+I began by tracking my daily data on Bible study and academic workload. Then I designed visual symbols for each variable and assembled them into a digital countryside scene. I want to do a scrapbook collage approach-laying textures, shapes, and drawings to represent my data.
 
 #### e. Prep your materials to share in class
 
@@ -312,6 +306,3 @@ The authors handle visual clutter well by keeping the figure design relatively s
 #### d. Recommendations
 
 I would recommend adding individual data points to the bar graphs in panels A and B so readers can see the distribution rather than only the mean ± SD, which would improve transparency. The figure could also standardize colors across panels (e.g., keep the same color for M- and M+ in all panels) to make the treatment comparisons easier to follow visually. The y-axis labeling on panel C could be more clearly indicated by going up by the same increments. The axis break could make the changes in the biomass appear larger or smaller than they are.
-
-
-
